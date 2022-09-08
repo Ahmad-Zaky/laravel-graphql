@@ -1,0 +1,17 @@
+type Task {
+  id: ID!
+  title: String!
+  description: String
+  user: User! @belongsTo
+  created_at: DateTime!
+  updated_at: DateTime!
+}
+
+"Indicates what fields are available at the top level of a query operation."
+type Query {
+    task(id: ID @eq): Task @find
+    tasks(
+      title: String @where(operator: "like")
+      description: String @where(operator: "like")
+    ): [Task!]! @all
+}
