@@ -12,7 +12,7 @@ services:
     ports:
       - "80:80"
     environment:
-      - VIRTUAL_HOST=assessment.local
+      - VIRTUAL_HOST=graphql.local
     depends_on:
       - mysql
     dns:
