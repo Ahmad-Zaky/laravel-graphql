@@ -19,7 +19,7 @@ class TaskFactory extends Factory
     {
         return [
             'user_id' => User::factory(),
-            'title' => fake()->title(),
+            'title' => fake()->sentence(),
             'description' => fake()->paragraph(),
         ];
     }

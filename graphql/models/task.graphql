@@ -7,11 +7,28 @@ type Task {
   updated_at: DateTime!
 }
 
-"Indicates what fields are available at the top level of a query operation."
-type Query {
+extend type Query {
     task(id: ID @eq): Task @find
     tasks(
       title: String @where(operator: "like")
       description: String @where(operator: "like")
     ): [Task!]! @all
+}
+
+extend type Mutation {
+  create(input: CreateInput! @spread): Task @create
+  update(input: UpdateInput! @spread): Task @update
+  delete(id: ID!): Task @delete
+}
+
+input CreateInput {
+  user_id: Int!
+  title: String!
+  description: String! @rules(apply: ["string", "min:3"])
+}
+
+input UpdateInput {
+  id: ID!
+  title: String!
+  description: String! @rules(apply: ["string", "min:3"])
 }
