@@ -12,23 +12,23 @@ extend type Query {
     tasks(
       title: String @where(operator: "like")
       description: String @where(operator: "like")
-    ): [Task!]! @all
+    ): [Task!]! @paginate @orderBy(column: "created_at", direction: DESC)
 }
 
 extend type Mutation {
-  create(input: CreateInput! @spread): Task @create
-  update(input: UpdateInput! @spread): Task @update
-  delete(id: ID!): Task @delete
+  createTask(input: CreateInput! @spread): Task @create
+  updateTask(input: UpdateInput! @spread): Task @update
+  deleteTask(id: ID!): Task @delete
 }
 
 input CreateInput {
   user_id: Int!
   title: String!
-  description: String! @rules(apply: ["string", "min:3"])
+  description: String @rules(apply: ["string", "min:3"])
 }
 
 input UpdateInput {
   id: ID!
   title: String!
-  description: String! @rules(apply: ["string", "min:3"])
+  description: String @rules(apply: ["string", "min:3"])
 }

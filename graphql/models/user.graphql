@@ -15,5 +15,5 @@ extend type Query {
     ): User @find
     users(
       name: String @where(operator: "like")
-    ): [User!]! @paginate
+    ): [User!]! @paginate @orderBy(column: "created_at", direction: DESC)
 }
