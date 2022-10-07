@@ -69,7 +69,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'Africa/Cairo',
 
     /*
     |--------------------------------------------------------------------------
@@ -212,4 +212,16 @@ return [
         // 'ExampleClass' => App\Example\ExampleClass::class,
     ])->toArray(),
 
+
+    /*
+    |--------------------------------------------------------------------------
+    | Application Time Format
+    |--------------------------------------------------------------------------
+    |
+    | Here you may specify the default time format for your application, which
+    | will be used by the PHP date and date-time functions.
+    |
+    */
+
+    'date_format' => 'd M Y h:i a',
 ];
