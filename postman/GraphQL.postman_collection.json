@@ -6,6 +6,74 @@
 	},
 	"item": [
 		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"test@email.com\",\n    \"password\": \"password\",\n    \"device_name\": \"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.5112.102 Safari/537.36\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_url}}login",
+							"host": [
+								"{{api_url}}login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{api_url}}logout",
+							"host": [
+								"{{api_url}}logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Me",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{api_url}}me",
+							"host": [
+								"{{api_url}}me"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "Users",
 			"item": [
 				{
@@ -22,7 +90,7 @@
 						"body": {
 							"mode": "graphql",
 							"graphql": {
-								"query": "{\n  users {\n    id\n    name\n    email\n    tasks {\n        id\n        title\n    }\n  }\n}",
+								"query": "{\n    users(first:10, page:2) {\n        data {\n            id\n            name\n            email\n            created_at\n            tasks {\n                id\n                title\n            }\n        }\n        paginatorInfo {\n            currentPage\n            lastPage\n        }\n    }\n}",
 								"variables": ""
 							}
 						},
@@ -75,7 +143,7 @@
 						"body": {
 							"mode": "graphql",
 							"graphql": {
-								"query": "{\n  tasks {\n    id\n    title\n    description\n    user {\n        id\n        name\n    }\n  }\n}",
+								"query": "{\n  tasks {\n    id\n    title\n    description\n    created_at\n    user {\n        id\n        name\n    }\n  }\n}",
 								"variables": ""
 							}
 						},
@@ -96,7 +164,70 @@
 						"body": {
 							"mode": "graphql",
 							"graphql": {
-								"query": "{\n  task(id: 1) {\n    id\n    title\n    description\n    user {\n        id\n        name\n    }\n  }\n}",
+								"query": "{\n  task(id: 11) {\n    id\n    title\n    description\n    user {\n        id\n        name\n    }\n  }\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation {\n    createTask(\n        input: {\n            user_id:1,\n            title: \"New Task ...\", \n            description: \"New Description ...\"\n        }\n    ) \n    {\n        id\n        title\n        description\n        user {\n            id\n            name\n            email\n        }\n        created_at\n        updated_at\n    }\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation {\n    updateTask(input: {id:12, title: \"New Edited Task ...\", description: \"New Edited Description ...\"}) {\n        id\n        title\n        description\n        user {\n            id\n            name\n            email\n        }\n        created_at\n        updated_at\n    }\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation {\n    deleteTask(id:11) {\n        id\n        title\n        description\n        user {\n            id\n            name\n            email\n        }\n        created_at\n        updated_at\n    }\n}",
 								"variables": ""
 							}
 						},
@@ -136,6 +267,10 @@
 		{
 			"key": "url",
 			"value": "http://graphql.local/graphql"
+		},
+		{
+			"key": "api_url",
+			"value": "http://graphql.local/api/v1/"
 		}
 	]
 }
