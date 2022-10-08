@@ -25,6 +25,9 @@
 						}
 					],
 					"request": {
+						"auth": {
+							"type": "noauth"
+						},
 						"method": "POST",
 						"header": [
 							{
@@ -164,7 +167,7 @@
 						"body": {
 							"mode": "graphql",
 							"graphql": {
-								"query": "{\n  tasks {\n    id\n    title\n    description\n    created_at\n    user {\n        id\n        name\n    }\n  }\n}",
+								"query": "{\n    tasks(first:10, page:1) {\n        data {\n            id\n            title\n            description\n            created_at\n            user {\n                id\n                name\n            }\n        }\n\n        paginatorInfo {\n            count\n            currentPage\n            hasMorePages\n            lastPage\n            perPage\n            total\n        }\n    }\n}",
 								"variables": ""
 							}
 						},
