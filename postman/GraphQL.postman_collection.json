@@ -54,7 +54,7 @@
 				{
 					"name": "Logout",
 					"request": {
-						"method": "GET",
+						"method": "POST",
 						"header": [
 							{
 								"key": "Accept",
@@ -72,20 +72,21 @@
 					"response": []
 				},
 				{
-					"name": "Me",
+					"name": "Profile",
 					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/json",
-								"type": "text"
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "{\n    profile {\n        name\n        email\n        created_at\n    }\n} ",
+								"variables": ""
 							}
-						],
+						},
 						"url": {
-							"raw": "{{api_url}}me",
+							"raw": "{{url}}",
 							"host": [
-								"{{api_url}}me"
+								"{{url}}"
 							]
 						}
 					},
