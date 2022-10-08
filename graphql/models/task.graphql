@@ -23,12 +23,12 @@ extend type Mutation {
 
 input CreateInput {
   user_id: Int!
-  title: String!
+  title: String! @rules(apply: ["required", "string", "min:3"])
   description: String @rules(apply: ["string", "min:3"])
 }
 
 input UpdateInput {
   id: ID!
-  title: String!
+  title: String! @rules(apply: ["required", "string", "min:3"])
   description: String @rules(apply: ["string", "min:3"])
 }
