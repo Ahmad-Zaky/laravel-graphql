@@ -39,7 +39,7 @@ return [
             // Logs every incoming GraphQL query.
             // \Nuwave\Lighthouse\Support\Http\Middleware\LogGraphQLQueries::class,
             
-            'auth,sactum',
+            'auth:sanctum',
         ],
 
         /*
