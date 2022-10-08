@@ -9,6 +9,7 @@ type User {
 } 
 
 extend type Query {
+    me: User @auth
     user(
       id: ID @eq @rules(apply: ["prohibits:email", "required_without:email"])
       email: String @eq @rules(apply: ["prohibits:id", "required_without:id", "email"])
