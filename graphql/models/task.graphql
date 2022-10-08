@@ -12,13 +12,13 @@ extend type Query {
     tasks(
       title: String @where(operator: "like")
       description: String @where(operator: "like")
-    ): [Task!]! @paginate @orderBy(column: "created_at", direction: DESC)
+    ): [Task!]! @paginate @orderBy(column: "created_at", direction: DESC) @whereAuth(relation: "user")
 }
 
 extend type Mutation {
-  createTask(input: CreateInput! @spread): Task @create
-  updateTask(input: UpdateInput! @spread): Task @update
-  deleteTask(id: ID!): Task @delete
+  createTask(input: CreateInput! @spread): Task @create @inject(context: "user.id", name: "user_id")
+  updateTask(input: UpdateInput! @spread): Task @update @whereAuth(relation: "user")
+  deleteTask(id: ID!): Task @delete @whereAuth(relation: "user")
 }
 
 input CreateInput {
